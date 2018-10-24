@@ -1,0 +1,61 @@
+<!--
+    Copyright (C) 2017-2018 52°North Initiative for
+    Geospatial Open Source Software GmbH
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License version 2 as published
+    by the Free Software Foundation.
+
+    If the program is linked with libraries which are licensed under one of
+    the following licenses, the combination of the program with the linked
+    library is not considered a "derivative work" of the program:
+
+        - Apache License, version 2.0
+        - Apache Software License, version 1.0
+        - GNU Lesser General Public License, version 3
+        - Mozilla Public License, versions 1.0, 1.1 and 2.0
+        - Common Development and Distribution License (CDDL), version 1.0
+
+    Therefore the distribution of the program linked with libraries licensed
+    under the aforementioned licenses, is permitted by the copyright holders
+    if the distribution is compliant with both the GNU General Public
+    License version 2 and the aforementioned licenses.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+    Public License for more details.
+
+-->
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="logFile" value="${catalina.base}/logs/52n-sos-webapp" />
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logFile}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logFile}/%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{0} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger level="TRACE" name="org.n52" />
+    <logger level="WARN"  name="org.springframework" />
+    <logger level="WARN"  name="org.hibernate"/>
+    <logger level="WARN"  name="org.hibernate.SQL" />
+    <logger level="WARN"  name="org.hibernate.SQL.level"/>
+    <logger level="WARN"  name="org.hibernate.type"/>
+    <logger level="WARN"  name="org.hibernate.type.level"/>
+    <logger level="ERROR" name="org.hibernate.engine.internal.StatefulPersistenceContext" />
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

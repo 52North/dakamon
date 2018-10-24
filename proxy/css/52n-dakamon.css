@@ -1,0 +1,133 @@
+/*
+ * Copyright (C) 2017-2018 52°North Initiative for
+ * Geospatial Open Source Software GmbH
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published
+ * by the Free Software Foundation.
+ *
+ * If the program is linked with libraries which are licensed under one of
+ * the following licenses, the combination of the program with the linked
+ * library is not considered a "derivative work" of the program:
+ *
+ *     - Apache License, version 2.0
+ *     - Apache Software License, version 1.0
+ *     - GNU Lesser General Public License, version 3
+ *     - Mozilla Public License, versions 1.0, 1.1 and 2.0
+ *     - Common Development and Distribution License (CDDL), version 1.0
+ *
+ * Therefore the distribution of the program linked with libraries licensed
+ * under the aforementioned licenses, is permitted by the copyright holders
+ * if the distribution is compliant with both the GNU General Public
+ * License version 2 and the aforementioned licenses.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+*/
+#jumboid {
+  width: 100%;
+}
+.bg-image {
+  position: relative;
+  background: url("../img/bg.jpg") no-repeat center center /cover;
+  height: 800px;
+  background-attachment: fixed;
+}
+.bg-image img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+header {
+  width: 100%;
+  height: 100%;
+  height: calc(100% - 1px);
+  background-size: cover;
+}
+
+header > div > h1 {
+	padding: 25px;
+	color: #66c5e4;
+	font-size: 500%;
+}
+
+footer {
+	padding-top: 50px;
+	padding-bottom: 200px;
+}
+
+#landing-page-buttons div.icon {
+    padding-bottom: 20px;
+}
+
+#landing-page-buttons div.icon span {
+  font-size: 150px;
+  color: #23271f;
+}
+
+#landing-page-buttons {
+  padding-bottom: 30px;
+}
+
+.landing-page-buttons,
+.landing-page-updates {
+  background: #f2f2f2;
+}
+
+.landing-page-introduction-text,
+.landing-page-tweets-and-events,
+.landing-page-about {
+  background: #fff;
+}
+
+a:hover,
+#landing-page-buttons a:hover,
+#landing-page-buttons a:hover div.icon span,
+#landing-page-buttons a:hover div.caption,
+#landing-page-buttons a:hover div.explanation {
+    text-decoration: none;
+    color: #e85511;
+}
+
+a:hover img {
+	box-shadow: 4px 4px 10px rgba(232,85,17,0.8);
+}
+
+#landing-page-buttons a:hover div.landing-page-button {
+  box-shadow:4px 4px 10px rgba(0,0,0,0.8);
+}
+
+#landing-page-buttons div.caption {
+  color: #23271f;
+  font-size: 150%;
+}
+
+#landing-page-buttons div.explanation {
+  color: #23271f;
+  text-align: left;
+  padding-top: 30px;
+}
+
+
+#landing-page-buttons div.landing-page-button {
+  cursor: pointer;
+  height: 300px;
+  text-align: center;
+  background-color: #f2f2f2;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+div.normal-text {
+	padding-left: 100px;
+	padding-right: 100px;
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+
+ul#logos > li.logo {
+  display: inline-block;
+  width: 175px;
+}
