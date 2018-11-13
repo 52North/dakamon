@@ -254,11 +254,12 @@ fi
 ##
 
 cp "$scriptpath/proxy/proxy.conf" /etc/nginx/sites-available/default
-cp "$scriptpath/proxy/index.html" /usr/share/nginx/html/
-cp -r "$scriptpath/proxy/fonts" /usr/share/nginx/html/
-cp -r "$scriptpath/proxy/css" /usr/share/nginx/html/
-cp -r "$scriptpath/proxy/img" /usr/share/nginx/html/
-cp -r "$scriptpath/proxy/js" /usr/share/nginx/html/
+mkdir -pv /srv/landingpage
+cp "$scriptpath/proxy/index.html" /srv/landingpage/
+cp -r "$scriptpath/proxy/fonts" /srv/landingpage/
+cp -r "$scriptpath/proxy/css" /srv/landingpage/
+cp -r "$scriptpath/proxy/img" /srv/landingpage/
+cp -r "$scriptpath/proxy/js" /srv/landingpage/
 
 sed -i "s/sos:8080/localhost:8080/g" /etc/nginx/sites-available/default
 sed -i "s/shiny:3838/localhost:3838/g" /etc/nginx/sites-available/default
