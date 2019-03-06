@@ -50,7 +50,7 @@ read -r -p "Database user: " database_user
 read -r -s -p "Database password: " database_password
 
 # create installation directory
-mkdir -vp $install_dir /dev/null 2>&1
+mkdir -vp $install_dir > /dev/null 2>&1
 echo "$(date): DaKaMon working directory: ${install_dir}"
 cd "$install_dir"
 
@@ -135,7 +135,7 @@ fi
 # via update-apps.sh script!
 
 # create upload dir if not exist yet
-mkdir -vp "$documents_dir" /dev/null 2>&1 || :
+mkdir -vp "$documents_dir" > /dev/null 2>&1 || :
 chown -Rv shiny:shiny "$documents_dir"
 
 systemctl start shiny-server
