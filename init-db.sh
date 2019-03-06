@@ -31,10 +31,13 @@ if [ "$(whoami)" != "postgres" ]; then
     echo "Please switch to postgres user via "su postgres" as root!"
     exit 1
 fi
+echo "+-----------------------------------------------+"
+echo "|      DaKaMon - Database - Configuration       |"
+echo "+-----------------------------------------------+"
 
 scriptpath="$( cd "$(dirname "$0")" && pwd -P || echo "$(dirname "$0") does not exist" && exit )"
 
-echo "Use the same information as in the system configuration!"
+echo "$(date): Use the same information as in the system configuration!"
 read -r -p "Database name: " database
 read -r -p "Database user: " database_user
 read -r -s -p "Database password: " database_password
@@ -46,16 +49,19 @@ psql -d "$database" -c "create extension postgis;"
 psql -d "$database" < "$scriptpath/db/init-dakamon-db-schema.sql"
 
 # Update tables
-echo "Change table owners in $database to $database_user"
+echo "$(date): Change table owners in $database to $database_user"
 tables=$(psql -d "${database}" -tc "select tablename from pg_tables where schemaname = 'public';")
 for table in $tables ; do
   psql -d "${database}" -c "alter table public.${table} owner to ${database_user}" ;
 done
 
 # Update sequences
-echo "Change sequence owners in $database to $database_user"
+echo "$(date): Change sequence owners in $database to $database_user"
 seq_tables=$(psql -qAt -c "SELECT sequence_name FROM information_schema.sequences \
   WHERE sequence_schema = 'public';" "$database")
 for tbl in $seq_tables ; do
   psql -c "alter table \"$tbl\" owner to $database_user" "$database" ;
 done
+echo "+-----------------------------------------------+"
+echo "| DaKaMon - Database - Configuration - FINISHED |"
+echo "------------------------------------------------+"

@@ -28,6 +28,9 @@
 #
 #
 scriptpath="$( cd "$(dirname "$0")" ; pwd -P )"
+echo "+--------------------------------------------+"
+echo "|      DaKaMon - System - Installation       |"
+echo "+--------------------------------------------+"
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root or via sudo $0"
   exit
@@ -48,6 +51,12 @@ read -r -p "FQDN of host: " host_name
 read -r -p "Database name: " database
 read -r -p "Database user: " database_user
 read -r -s -p "Database password: " database_password
+read -r -s -p "Repeat password: " database_password_check
+
+if [ ! "$database_password" = "$database_password_check" ]; then
+  echo "$(date): Provided passwords do NOT match -> exit."
+  exit
+fi
 
 # create installation directory
 mkdir -vp $install_dir > /dev/null 2>&1
@@ -228,7 +237,7 @@ cp "$scriptpath/sos/logback.xml" "$sos_install_dir/WEB-INF/classes/"
 
 sed -i "s/hibernate.connection.username=.*/hibernate.connection.username=${database_user}/g" "$scriptpath/sos/datasource.properties"
 sed -i "s/hibernate.connection.password=.*/hibernate.connection.password=${database_password}/g" "$scriptpath/sos/datasource.properties"
-sed -i "s_db\\:5432/sos.*_localhost\\:5432/${database}_g" "$scriptpath/sos/datasource.properties"
+sed -i "s_db\\\:5432/sos.*_localhost\\\:5432/${database}_g" "$scriptpath/sos/datasource.properties"
 
 cp "$scriptpath/sos/datasource.properties" "$sos_install_dir/WEB-INF/"
 chown -R tomcat8:tomcat8 "$sos_install_dir"
@@ -312,4 +321,6 @@ echo "$(date): Start tomcat"
 systemctl start tomcat8
 echo "$(date): Start nginx"
 systemctl start nginx
-echo "$(date): DaKaMon installation finished."
+echo "+--------------------------------------------+"
+echo "| DaKaMon - System - Installation - FINISHED |"
+echo "+--------------------------------------------+"
