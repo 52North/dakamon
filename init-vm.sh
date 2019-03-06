@@ -58,23 +58,22 @@ cd "$install_dir"
 ##
 ## Install tools and libraries
 ##
-
 echo "$(date): Install base system packages:"
 apt-get update && apt-get upgrade -y
 apt-get install --assume-yes --no-install-recommends \
-  software-properties-common \
-  openjdk-8-jdk \
-  maven \
+  dirmngr \
+  gdebi-core \
   git \
-  tomcat8 \
+  libcurl4-openssl-dev \
+  libpq-dev \
+  libssl-dev \
+  maven \
+  openjdk-8-jdk \
   postgresql-9.6-postgis-2.3 \
   postgresql-9.6-postgis-scripts \
-  libssl-dev \
-  libpq-dev \
   procps \
-  dirmngr \
-  libcurl4-openssl-dev \
-  gdebi-core
+  software-properties-common \
+  tomcat8
 
 # remove tomcat examples and root app
 
