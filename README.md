@@ -2,7 +2,9 @@
 
 ## Introduction
 
-DaKaMon is a system for storing hydrological measurements in a structured database and was developed within the ["Monitoringprogramm für prioritäre Stoffe zur Ableitung deutschlandweiter differenzierter Emissionsfaktoren zur Bilanzierung der Stoffeinträge aus kommunalen Kläranlagen"](https://isww.iwg.kit.edu/607_2201.php).
+DaKaMon is a system for storing hydrological measurements in a structured
+database and was developed within the
+["Monitoringprogramm für prioritäre Stoffe zur Ableitung deutschlandweiter differenzierter Emissionsfaktoren zur Bilanzierung der Stoffeinträge aus kommunalen Kläranlagen"](https://isww.iwg.kit.edu/607_2201.php).
 
 ## License
 
@@ -12,16 +14,16 @@ DaKaMon is a system for storing hydrological measurements in a structured databa
 
 ## Steps for Developers
 
- - Clone this repository:
+ 1. Clone this repository:
  ```
  git clone https://github.com/52north/dakamon.git
  ```
 
  - Clone [dakamon-r-tools](https://github.com/52north/dakamon-r-tools)
    repository and create docker image for shiny-server.
-   If you are using Windows you have to check the `docker/shiny-server.sh` file for
-   line-endings because it should be `LF` and not `CRLF`. With `CRLF` the shiny server
-   does not start!
+   If you are using Windows you have to check the `docker/shiny-server.sh` file
+   for line-endings because it should be `LF` and not `CRLF`. With `CRLF` the
+   shiny server does not start!
    Please replace `USER` with your username and `YYYY-MM` with the current
    values in the following commands:
 ```
@@ -59,12 +61,23 @@ DaKaMon is a system for storing hydrological measurements in a structured databa
 
 ## Steps for Users
 
-- Clone this repository:
+ 1. Clone this repository:
 ```
 git clone https://github.com/52north/dakamon.git
 ```
-- Run `init-vm.sh` and follow the instructions on the screen.
-- Run `init-db.sh` and follow the instructions on the screen.
+ - Make the scripts executable:
+```
+cd dakamon
+../dakamon$ sudo chmod +x init-vm.sh init-db.sh
+```
+ - Run start installation script and follow the instructions on the screen:
+```
+../dakamon$ sudo ./init-vm.sh
+```
+ - Run database initialization script and follow the instructions on the screen
+```
+init-db.sh
+```
 
 ## Contact
 
