@@ -259,11 +259,11 @@ else
     echo "$(date): Update SOS-Feeder (branch: $(git branch)) ..."
     git pull
   fi
-  cp "$scriptpath/feeder/logback.xml" $importer_dir/feeder/src/main/resources/logback.xml
+  cp "$scriptpath/feeder/logback.xml" "$importer_dir/feeder/src/main/resources/logback.xml"
   mvn package -e -DskipTests=true -DdownloadSources=false -DdownloadJavadocs=false
   chown shiny:shiny $importer_dir/feeder/target/52n-sos-importer-feeder-bin.jar
   mkdir -pv /usr/local/52n
-  cp $importer_dir/feeder/target/52n-sos-importer-feeder-bin.jar /usr/local/52n/
+  cp "$importer_dir/feeder/target/52n-sos-importer-feeder-bin.jar" "/usr/local/52n/"
 fi
 echo "$(date): Finished copy and configuration of sos-importer."
 
