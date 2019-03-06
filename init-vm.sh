@@ -59,6 +59,7 @@ cd "$install_dir"
 ## Install tools and libraries
 ##
 
+echo "$(date): Install base system packages:"
 apt-get update && apt-get upgrade -y
 apt-get install --assume-yes --no-install-recommends \
   software-properties-common \
@@ -192,7 +193,7 @@ mvn install -DskipTests=true -DdownloadSources=false -DdownloadJavadocs=false
 cd $install_dir
 sos_dir=$install_dir/sos
 if [ ! -d sos ]; then
-  echo "$(date): Checkout SOS to ${sos_dir} ..."
+  echo "$(date): Checkout SOS to $sos_dir ..."
   git clone https://github.com/EHJ-52n/SOS.git $sos_dir
   cd $sos_dir
   git checkout -b distribution/dakamon origin/distribution/dakamon
@@ -212,6 +213,7 @@ cp "$scriptpath/sos/tomcat-index.html" /var/lib/tomcat8/webapps/ROOT/index.html
 cp "$scriptpath/sos/application.properties" /var/lib/tomcat8/webapps/52n-sos-webapp/WEB-INF/classes/
 cp "$scriptpath/sos/settings.json" /var/lib/tomcat8/webapps/52n-sos-webapp/static/client/helgoland/
 cp "$scriptpath/sos/logback.xml" /var/lib/tomcat8/webapps/52n-sos-webapp/WEB-INF/classes/
+echo "$(date): Start copy and configuration of SOS..."
 
 sed -i "s/hibernate.connection.username=.*/hibernate.connection.username=${database_user}/g" "$scriptpath/sos/datasource.properties"
 sed -i "s/hibernate.connection.password=.*/hibernate.connection.password=${database_password}/g" "$scriptpath/sos/datasource.properties"
@@ -219,6 +221,7 @@ sed -i "s_db\\:5432/sos.*_localhost\\:5432/${database}_g" "$scriptpath/sos/datas
 
 cp "$scriptpath/sos/datasource.properties" /var/lib/tomcat8/webapps/52n-sos-webapp/WEB-INF/
 chown -R tomcat8:tomcat8 /var/lib/tomcat8/webapps/52n-sos-webapp
+echo "$(date): Finished copy and configuration of SOS."
 
 
 ##
@@ -227,6 +230,7 @@ chown -R tomcat8:tomcat8 /var/lib/tomcat8/webapps/52n-sos-webapp
 
 #ln -sv /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java
 
+echo "$(date): Start copy and configuration of sos-importer..."
 cd $install_dir
 importer_dir=$install_dir/sos-importer
 mkdir -pv /usr/local/52n > /dev/null 2>&1 || :
@@ -250,12 +254,14 @@ else
   mkdir -pv /usr/local/52n
   cp $importer_dir/feeder/target/52n-sos-importer-feeder-bin.jar /usr/local/52n/
 fi
+echo "$(date): Finished copy and configuration of sos-importer."
 
 
 
 ##
 ## Configure nginx proxy
 ##
+echo "$(date): Start configuration of nginx proxy..."
 
 cp "$scriptpath/proxy/proxy.conf" /etc/nginx/sites-available/default
 mkdir -pv /srv/landingpage
@@ -268,11 +274,12 @@ cp -r "$scriptpath/proxy/js" /srv/landingpage/
 sed -i "s/sos:8080/localhost:8080/g" /etc/nginx/sites-available/default
 sed -i "s/shiny:3838/localhost:3838/g" /etc/nginx/sites-available/default
 sed -i "s/server_name localhost;/$host_name;/g" /etc/nginx/sites-available/default
+echo "$(date): Finished configuration of nginx proxy."
 
 ##
 ## Configure and enable dakamon tmp cleaning service
 ##
-
+echo "$(date): Start configuration of dakamon tmp cleaning service..."
 mkdir -pv /usr/local/52n
 cp "$scriptpath/systemd/clean-dakamon-tmp.sh" /usr/local/52n/
 cp "$scriptpath/systemd/clean-dakamon-tmp.service" /etc/systemd/system/
@@ -280,6 +287,7 @@ cp "$scriptpath/systemd/clean-dakamon-tmp.timer" /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable clean-dakamon-tmp.service clean-dakamon-tmp.timer
 systemctl start clean-dakamon-tmp.timer
+echo "$(date): Finished configuration of dakamon tmp cleaning service."
 
 ##
 ## FINISH: start all required services
