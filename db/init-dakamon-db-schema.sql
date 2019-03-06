@@ -25,10 +25,10 @@
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
 -- Public License for more details.
 --
-\connect template_postgis
-DROP SCHEMA IF EXISTS tiger CASCADE;
-DROP SCHEMA IF EXISTS tiger_data CASCADE;
-DROP SCHEMA IF EXISTS topology CASCADE;
+-- \connect template_postgis
+-- DROP SCHEMA IF EXISTS tiger CASCADE;
+-- DROP SCHEMA IF EXISTS tiger_data CASCADE;
+-- DROP SCHEMA IF EXISTS topology CASCADE;
 \connect sos
 DROP SCHEMA IF EXISTS tiger CASCADE;
 DROP SCHEMA IF EXISTS tiger_data CASCADE;

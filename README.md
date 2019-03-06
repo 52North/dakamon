@@ -63,20 +63,21 @@ database and was developed within the
 
  1. Clone this repository:
 ```
-git clone https://github.com/52north/dakamon.git
+user@host:~/$ git clone https://github.com/52north/dakamon.git
 ```
  - Make the scripts executable:
 ```
-cd dakamon
-../dakamon$ sudo chmod +x init-vm.sh init-db.sh
+user@host:~/$ cd dakamon
+user@host:~/dakamon$ sudo chmod +x init-vm.sh init-db.sh
 ```
  - Run start installation script and follow the instructions on the screen:
 ```
-../dakamon$ sudo ./init-vm.sh
+user@host:~/dakamon$ sudo ./init-vm.sh
 ```
  - Run database initialization script and follow the instructions on the screen
 ```
-init-db.sh
+user@host:~/dakamon$ sudo su postgres
+postgres@host:/home/user/dakamon$ ./init-db.sh
 ```
 
 ## Contact
