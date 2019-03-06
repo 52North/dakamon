@@ -26,8 +26,12 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
 # Public License for more details.
 #
-
+#
 scriptpath="$( cd "$(dirname "$0")" ; pwd -P )"
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root or via sudo $0"
+  exit
+fi
 
 documents_dir=/srv/dakamon-uploads
 
