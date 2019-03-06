@@ -37,12 +37,10 @@ if [ "$EUID" -ne 0 ]
 fi
 
 documents_dir=/srv/dakamon-uploads
-
 install_dir="/var/dakamon_install"
 shiny_server_version=1.5.8.921
 
-echo "DaKaMon - Installation"
-echo "----------------------"
+# TODO check for each service if installed and than stop
 echo "$(date): Stop all services"
 systemctl stop shiny-server tomcat8 postgresql nginx
 echo "$(date): stopped shiny-server tomcat8 postgresql nginx"
@@ -58,8 +56,9 @@ if [ ! "$database_password" = "$database_password_check" ]; then
   echo "$(date): Provided passwords do NOT match -> exit."
   exit
 fi
-
-# create installation directory
+##
+## create installation directory
+##
 mkdir -vp $install_dir > /dev/null 2>&1
 echo "$(date): DaKaMon working directory: ${install_dir}"
 cd "$install_dir"
@@ -87,10 +86,10 @@ apt-get install --assume-yes --no-install-recommends \
   software-properties-common \
   tomcat8
 
-# remove tomcat examples and root app
-
+##
+## remove tomcat examples and root app
+##
 echo "$(date): Remove not needed Tomcat webapps"
-
 rm -rfv /var/lib/tomcat8/webapps/docs
 rm -rfv /var/lib/tomcat8/webapps/examples
 rm -rfv /var/lib/tomcat8/webapps/host-manager
