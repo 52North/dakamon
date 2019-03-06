@@ -210,21 +210,28 @@ mvn package -DskipTests=true -P-check -DdownloadSources=false -DdownloadJavadocs
 
 
 # configuration
-rm -r /var/lib/tomcat8/webapps/52n-sos-webapp
-cp -r $install_dir/sos/webapp/target/52n-sos-webapp /var/lib/tomcat8/webapps/
-cp "$scriptpath/sos/configuration.db" /var/lib/tomcat8/webapps/52n-sos-webapp/
-cp "$scriptpath/sos/tomcat-index.html" /var/lib/tomcat8/webapps/ROOT/index.html
-cp "$scriptpath/sos/application.properties" /var/lib/tomcat8/webapps/52n-sos-webapp/WEB-INF/classes/
-cp "$scriptpath/sos/settings.json" /var/lib/tomcat8/webapps/52n-sos-webapp/static/client/helgoland/
-cp "$scriptpath/sos/logback.xml" /var/lib/tomcat8/webapps/52n-sos-webapp/WEB-INF/classes/
+tomcat_webapps_dir=/var/lib/tomcat8/webapps
+sos_install_dir=$tomcat_webapps_dir/52n-sos-webapp
+
+if [ -d "$sos_install_dir" ]; then
+  echo "$(date): SOS installation found in $sos_install_dir. Start removal..."
+  rm -r "$sos_install_dir"
+  echo "$(date): Finished removal of SOS installation"
+fi
 echo "$(date): Start copy and configuration of SOS..."
+cp -r "$install_dir/sos/webapp/target/52n-sos-webapp" "$tomcat_webapps_dir/"
+cp "$scriptpath/sos/configuration.db" "$sos_install_dir/"
+cp "$scriptpath/sos/tomcat-index.html" "$tomcat_webapps_dir/ROOT/index.html"
+cp "$scriptpath/sos/application.properties" "$sos_install_dir/WEB-INF/classes/"
+cp "$scriptpath/sos/settings.json" "$sos_install_dir/static/client/helgoland/"
+cp "$scriptpath/sos/logback.xml" "$sos_install_dir/WEB-INF/classes/"
 
 sed -i "s/hibernate.connection.username=.*/hibernate.connection.username=${database_user}/g" "$scriptpath/sos/datasource.properties"
 sed -i "s/hibernate.connection.password=.*/hibernate.connection.password=${database_password}/g" "$scriptpath/sos/datasource.properties"
 sed -i "s_db\\:5432/sos.*_localhost\\:5432/${database}_g" "$scriptpath/sos/datasource.properties"
 
-cp "$scriptpath/sos/datasource.properties" /var/lib/tomcat8/webapps/52n-sos-webapp/WEB-INF/
-chown -R tomcat8:tomcat8 /var/lib/tomcat8/webapps/52n-sos-webapp
+cp "$scriptpath/sos/datasource.properties" "$sos_install_dir/WEB-INF/"
+chown -R tomcat8:tomcat8 "$sos_install_dir"
 echo "$(date): Finished copy and configuration of SOS."
 
 
