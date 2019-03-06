@@ -71,6 +71,7 @@ cd "$install_dir"
 echo "$(date): Install base system packages:"
 apt-get update && apt-get upgrade -y
 apt-get install --assume-yes --no-install-recommends \
+  curl \
   dirmngr \
   gdebi-core \
   git \

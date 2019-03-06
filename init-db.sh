@@ -37,11 +37,11 @@ echo "+-----------------------------------------------+"
 
 scriptpath="$( cd "$(dirname "$0")" && pwd -P || echo "$(dirname "$0") does not exist" && exit )"
 
-echo "$(date): Use the same information as in the system configuration!"
+echo "Use the same information as in the system configuration!"
 read -r -p "Database name: " database
 read -r -p "Database user: " database_user
 read -r -s -p "Database password: " database_password
-
+echo ""
 psql -c "create user $database_user encrypted password '$database_password';"
 psql -c "drop database if exists $database;"
 psql -c "create database $database owner $database_user encoding 'utf-8';"

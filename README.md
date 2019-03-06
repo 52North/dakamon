@@ -68,7 +68,7 @@ user@host:~/$ git clone https://github.com/52north/dakamon.git
  - Make the scripts executable:
 ```
 user@host:~/$ cd dakamon
-user@host:~/dakamon$ chmod +x init-vm.sh init-db.sh
+user@host:~/dakamon$ chmod +x init-vm.sh init-db.sh update-apps.sh
 ```
  - Run start installation script and follow the instructions on the screen:
 ```
@@ -79,7 +79,10 @@ user@host:~/dakamon$ sudo ./init-vm.sh
 user@host:~/dakamon$ sudo su postgres
 postgres@host:/home/user/dakamon$ ./init-db.sh
 ```
-
+ - Run apps install and update script:
+```
+user@host:~/dakamon$ sudo ./update-apps.sh
+```
 ## Contact
 
 - [Gräler, Benedikt](mailto:b.graeler@52north.org)

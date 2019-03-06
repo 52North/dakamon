@@ -28,7 +28,7 @@ tools_zip="$scriptpath/tools.zip"
 r_tools_dir="$scriptpath/tools"
 shiny_srv_dir="/srv/shiny-server"
 
-curl --fail -sS -n -o "$tools_zip" https://github.com/52north/dakamon-r-tools/zipball/master
+curl --fail --remote-header-name --location --silent --show-error --output "$tools_zip" https://github.com/52north/dakamon-r-tools/zipball/master
 
 echo "$(date): Downloaded to $tools_zip"
 
