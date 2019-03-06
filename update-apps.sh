@@ -70,7 +70,7 @@ rm -v "$shiny_srv_dir/DaKaMon_viewer/conf.R"
 ln -sv "$shiny_srv_dir/DaKaMon_importer/conf.R" "$shiny_srv_dir/DaKaMon_viewer/conf.R"
 
 # create upload dir if not exist yet
-mkdir -vp "$documents_dir" /dev/null 2>&1 || :
+mkdir -vp "$documents_dir" > /dev/null 2>&1 || :
 chown -Rv shiny:shiny "$documents_dir"
 
 chown -Rv shiny:shiny /srv/shiny-server/DaKaMon_viewer
