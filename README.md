@@ -68,7 +68,7 @@ user@host:~/$ git clone https://github.com/52north/dakamon.git
  - Make the scripts executable:
 ```
 user@host:~/$ cd dakamon
-user@host:~/dakamon$ sudo chmod +x init-vm.sh init-db.sh
+user@host:~/dakamon$ chmod +x init-vm.sh init-db.sh
 ```
  - Run start installation script and follow the instructions on the screen:
 ```

@@ -51,8 +51,9 @@ read -r -p "FQDN of host: " host_name
 read -r -p "Database name: " database
 read -r -p "Database user: " database_user
 read -r -s -p "Database password: " database_password
+echo ""
 read -r -s -p "Repeat password: " database_password_check
-
+echo ""
 if [ ! "$database_password" = "$database_password_check" ]; then
   echo "$(date): Provided passwords do NOT match -> exit."
   exit
