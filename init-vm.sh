@@ -68,6 +68,7 @@ apt-get install --assume-yes --no-install-recommends \
   libpq-dev \
   libssl-dev \
   maven \
+  nginx \
   openjdk-8-jdk \
   postgresql-9.6-postgis-2.3 \
   postgresql-9.6-postgis-scripts \
@@ -260,19 +261,20 @@ echo "$(date): Finished copy and configuration of sos-importer."
 ##
 ## Configure nginx proxy
 ##
+nginx_proxy_webroot=/srv/landingpage
+nginx_proxy_site=/etc/nginx/sites-available/default
 echo "$(date): Start configuration of nginx proxy..."
+cp "$scriptpath/proxy/proxy.conf" "$nginx_proxy_site"
+mkdir -pv "$nginx_proxy_webroot"
+cp "$scriptpath/proxy/index.html" "$nginx_proxy_webroot/"
+cp -r "$scriptpath/proxy/fonts" "$nginx_proxy_webroot/"
+cp -r "$scriptpath/proxy/css" "$nginx_proxy_webroot/"
+cp -r "$scriptpath/proxy/img" "$nginx_proxy_webroot/"
+cp -r "$scriptpath/proxy/js" "$nginx_proxy_webroot/"
 
-cp "$scriptpath/proxy/proxy.conf" /etc/nginx/sites-available/default
-mkdir -pv /srv/landingpage
-cp "$scriptpath/proxy/index.html" /srv/landingpage/
-cp -r "$scriptpath/proxy/fonts" /srv/landingpage/
-cp -r "$scriptpath/proxy/css" /srv/landingpage/
-cp -r "$scriptpath/proxy/img" /srv/landingpage/
-cp -r "$scriptpath/proxy/js" /srv/landingpage/
-
-sed -i "s/sos:8080/localhost:8080/g" /etc/nginx/sites-available/default
-sed -i "s/shiny:3838/localhost:3838/g" /etc/nginx/sites-available/default
-sed -i "s/server_name localhost;/$host_name;/g" /etc/nginx/sites-available/default
+sed -i "s/sos:8080/localhost:8080/g" "$nginx_proxy_site"
+sed -i "s/shiny:3838/localhost:3838/g" "$nginx_proxy_site"
+sed -i "s/server_name localhost;/$host_name;/g" "$nginx_proxy_site"
 echo "$(date): Finished configuration of nginx proxy."
 
 ##
