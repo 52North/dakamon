@@ -105,8 +105,12 @@ echo "$(date): Prepare R environment ..."
 
 # install current R version
 apt-add-repository "deb http://cran.uni-muenster.de/bin/linux/debian/ $(lsb_release -cs)-cran35/"
-cran_fingerprint=FCAE2A0E115C3D8A
-gpg --list-keys $cran_fingerprint > /dev/null 2>&1 || gpg --keyserver pgpkeys.mit.edu --recv-key $cran_fingerprint
+# TODO change to list of keys with loop
+cran_fingerprint=E19F5F87128899B192B1A2C2AD5F960A256A04AF
+gpg --list-keys $cran_fingerprint > /dev/null 2>&1 || gpg --keyserver keyserver.ubuntu.com --recv-keys $cran_fingerprint
+gpg -a --export $cran_fingerprint | apt-key add -
+cran_fingerprint=6212B7B7931C4BB16280BA1306F90DE5381BA480
+gpg --list-keys $cran_fingerprint > /dev/null 2>&1 || gpg --keyserver keyserver.ubuntu.com --recv-keys $cran_fingerprint
 gpg -a --export $cran_fingerprint | apt-key add -
 
 apt-get update && apt-get install -y r-base
@@ -121,12 +125,12 @@ EOF
 if [ ! -f /usr/bin/shiny-server ]; then
   # install shiny server
   echo "$(date): Installing Shiny Server ..."
-  shiny_server_deb="shiny-server-${shiny_server_version}-AMD64.DEB"
+  shiny_server_deb="shiny-server-${shiny_server_version}-amd64.deb"
   wget "https://download3.rstudio.org/ubuntu-14.04/$(uname -m)/${shiny_server_deb}"
   gdebi -n ${shiny_server_deb}
 
   # register shiny at systemd
-  cp $install_dir/systemd/shiny-server.service /etc/systemd/system
+  cp $scriptpath/systemd/shiny-server.service /etc/systemd/system
   systemctl enable shiny-server
 else
   echo "$(date): Shiny Server already installed"
